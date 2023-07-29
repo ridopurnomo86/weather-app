@@ -1,0 +1,34 @@
+{
+  "name": "weather-app",
+  "private": true,
+  "version": "0.1.0",
+  "ts-standard": {
+    "project": "./tsconfig.json"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest --config ./vitest.config.ts",
+    "lint": "eslint ./src/**/* ./tests/**/*  -c ./.eslintrc.js"
+  },
+  "dependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@testing-library/vue": "^7.0.0",
+    "@types/jest": "^29.5.3",
+    "@typescript-eslint/parser": "^6.2.0",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/test-utils": "^2.4.0-alpha.2",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vitest": "^0.2.6",
+    "eslint-plugin-vue": "^9.15.1",
+    "jsdom": "^22.1.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vitest": "^0.33.0"
+  }
+}
