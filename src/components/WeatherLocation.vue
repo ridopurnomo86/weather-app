@@ -1,47 +1,101 @@
 <template>
     <div class="sidebar-weather-location-container">
-        <div class="weather-image-container">
-            <img src="../assets/Shower.png" alt="shower image" />
+        <div>
+            <div className="header-container">
+                <Button :text="'Search for places'" :on-click="onSearchPlace" />
+                <button class="icon-container" :on-click="onSearchCurrentLocation">
+                    <img src="../assets/icons/gps.svg" alt="gps icon" />
+                </button>
+            </div>
+            <div class="weather-image-container">
+                <img src="../assets/Cloud-background.png" class="cloud-background" alt="cloud background image" />
+                <img src="../assets/Shower.png" alt="shower image" class="shower-image" />
+            </div>
         </div>
         <div class="weather-info-container">
             <div class="weather-degree-container">
-                <h1 class="weather-degree-text">15</h1>
-                <p class="degree-text">&deg;<span>C</span></p>
+                <h1 class="weather-degree-text">{{ temp }}</h1>
+                <p class="degree-text">
+                    &deg;<span>{{ tempUnit }}</span>
+                </p>
             </div>
-            <p class="weather-type-text">Shower</p>
+            <p class="weather-type-text">{{ weather }}</p>
             <p class="date-text">Today&nbsp;&#x2022;&nbsp;Fri, 5 Jun</p>
             <div class="flex-container">
                 <img src="../assets/icons/location.svg" alt="location icon" />
-                <p class="location-text">Helsinski</p>
+                <p class="location-text">{{ location }}</p>
             </div>
         </div>
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Button from './core/Button.vue';
+
+export interface WeatherLocationPropsType {
+    weather: string;
+    location: string;
+    temp: number;
+    tempUnit: string;
+    onSearchPlace: () => void;
+    onSearchCurrentLocation: () => void;
+}
+
+defineProps<WeatherLocationPropsType>();
+</script>
 
 <style scoped>
 .flex-container {
     display: flex;
     align-items: center;
 }
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.icon-container {
+    background-color: #6e707a4d;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
 .sidebar-weather-location-container {
     max-width: 459px;
     min-height: 100vh;
     background-color: var(--main-bg-300);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 42px 28px;
 }
 .weather-image-container {
-    background-image: url('../assets/Cloud-background.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 160%;
-    background-clip: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     box-shadow: inset 0 0 100% #6db3f2;
+    position: relative;
 }
+.cloud-background {
+    position: absolute;
+    right: -120px;
+    top: 0;
+    bottom: 0;
+    max-width: 850px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    opacity: 0.3;
+}
+.shower-image {
+    position: relative;
+    top: 90px;
+}
+
 .weather-info-container {
     display: flex;
     align-items: center;

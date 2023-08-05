@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Button from 'components/core/Button.vue';
 
 describe('Button', () => {
@@ -23,20 +23,23 @@ describe('Button', () => {
             expectBg: '#3c47e9',
         },
         {
-            variant: 'secondary',
+            variant: 'default',
             expectBg: '#6e707a',
         },
     ])('should display Button style based on variant $variant', ({ variant }) => {
         const text = 'Search for places';
 
-        const comp = shallowMount(Button, {
+        const comp = mount(Button, {
             props: {
                 text,
                 variant,
             },
         });
 
+        const button = comp.get('[data-testid="core-button"]');
+
         expect(comp.find('[aria-label="core-button"]').isVisible()).toBe(true);
-        expect(comp.attributes('data-variant')).toBe(variant);
+        expect(button.classes()).toContain(variant);
+        expect(['primary', 'default']).toContain(variant);
     });
 });

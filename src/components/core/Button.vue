@@ -1,7 +1,6 @@
 <template>
     <button
-        class="button-container"
-        :data-variant="variant"
+        :class="`button-container ${variant}`"
         aria-label="core-button"
         :data-testid="'core-button'"
         @click="onClick"
@@ -12,28 +11,32 @@
 </template>
 
 <script setup lang="ts">
-interface ButtonProps {
+export interface ButtonPropsType {
     variant?: 'primary' | 'default';
     text?: string;
     onClick?: () => void;
 }
 
-withDefaults(defineProps<ButtonProps>(), {
-    variant: 'primary',
+withDefaults(defineProps<ButtonPropsType>(), {
+    variant: 'default',
 });
 </script>
 
-<style scoped>
+<style>
 .button-container {
     border: none;
     padding: 12px 18px;
     box-shadow: 0px 4px 4px 0px #00000040;
-    background-color: #6e707a;
-    color: #e7e7eb;
     cursor: pointer;
     transition: 0.3s;
 }
-.button-container[data-variant='primary'] {
+
+.default {
+    background-color: #6e707a;
+    color: #e7e7eb;
+}
+
+.primary {
     background-color: #3c47e9;
     color: #e7e7eb;
 }

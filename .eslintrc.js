@@ -19,6 +19,7 @@ module.exports = {
         'vue/singleline-html-element-content-newline': 0,
         'vue/component-name-in-template-casing': ['error', 'PascalCase'],
         'linebreak-style': 0,
+        'no-console': ['error'],
         'vue/multi-word-component-names': 0,
         'vitest/max-nested-describe': [
             'error',

@@ -10,9 +10,11 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "test": "vitest --config ./vitest.config.ts",
-    "lint": "eslint ./src/**/* ./tests/**/*  -c ./.eslintrc.js"
+    "lint": "eslint ./src/**/* ./tests/**/*  -c ./.eslintrc.js",
+    "typecheck": "vitest typecheck"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
