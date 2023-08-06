@@ -25,11 +25,13 @@ const useFetch = ({ query }: UseFetchType) => {
                 signal,
             });
             data.value = await res.data;
+            isLoading.value = false;
             return res;
         } catch (err: unknown) {
             if (err instanceof Error) {
                 (error.value as any) = err;
             }
+            isLoading.value = false;
         }
     };
 

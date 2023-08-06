@@ -2,8 +2,9 @@ import { reactive } from 'vue';
 import { GeoApiDataTypes } from '@/types/api-data/geo-api';
 import axios from 'axios';
 
-const location = reactive<{ data: GeoApiDataTypes }>({
+const location = reactive<{ data: GeoApiDataTypes; isLoading: boolean }>({
     data: {} as GeoApiDataTypes,
+    isLoading: true,
 });
 
 const useCurrentLocation = () => {
@@ -15,8 +16,12 @@ const useCurrentLocation = () => {
 
         try {
             const res = await axios.get(getApiUrl);
-            location.data = await res.data;
+            if (res.data) {
+                location.data = await res.data;
+                location.isLoading = false;
+            }
         } catch (err) {
+            location.isLoading = false;
             throw new Error(err as any);
         }
     };
