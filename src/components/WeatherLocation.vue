@@ -20,7 +20,7 @@
                 </p>
             </div>
             <p class="weather-type-text">{{ weather }}</p>
-            <p class="date-text">Today&nbsp;&#x2022;&nbsp;Fri, 5 Jun</p>
+            <p class="date-text">Today&nbsp;&#x2022;&nbsp;{{ dayjs().format('ddd, D MMM') }}</p>
             <div class="flex-container">
                 <img src="../assets/icons/location.svg" alt="location icon" />
                 <p class="location-text">{{ location }}</p>
@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs';
 import Button from './core/Button.vue';
 
 export interface WeatherLocationPropsType {
@@ -64,14 +65,15 @@ defineProps<WeatherLocationPropsType>();
     cursor: pointer;
 }
 .sidebar-weather-location-container {
-    max-width: 459px;
-    min-height: 100vh;
     background-color: var(--main-bg-300);
     position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 42px 28px;
+    overflow: hidden;
 }
 .weather-image-container {
     display: flex;
@@ -139,5 +141,32 @@ defineProps<WeatherLocationPropsType>();
     line-height: 21px;
     color: var(--neutral-600);
     margin-bottom: 32px;
+}
+
+@media screen and (max-height: 960px) {
+    .weather-degree-container {
+        margin-bottom: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .degree-text {
+        font-size: 24px;
+    }
+    .weather-degree-text {
+        font-size: 60px;
+    }
+    .weather-type-text {
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+    .cloud-background {
+        display: none;
+    }
+    .shower-image {
+        position: relative;
+        max-width: 200px;
+        top: 0;
+    }
 }
 </style>
