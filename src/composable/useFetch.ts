@@ -7,17 +7,18 @@ const isLoading = ref(true);
 const { signal, abort } = new AbortController();
 
 type UseFetchType = {
-    query: { [key: string]: any };
+    query?: { [key: string]: any };
+    path: string;
 };
 
-const useFetch = ({ query }: UseFetchType) => {
+const useFetch = ({ query, path }: UseFetchType) => {
     const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
     const APP_ID = import.meta.env.VITE_APP_ID || '';
 
     const request = async () => {
         try {
-            const res = await axios.get(`${BASE_URL}/weather`, {
+            const res = await axios.get(`${BASE_URL}${path}`, {
                 params: {
                     ...query,
                     APPID: APP_ID,

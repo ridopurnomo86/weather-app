@@ -9,7 +9,7 @@
             </div>
             <div class="weather-image-container">
                 <img src="../assets/Cloud-background.png" class="cloud-background" alt="cloud background image" />
-                <img src="../assets/Shower.png" alt="shower image" class="shower-image" />
+                <img :src="`${getImageUrl(weather)}`" class="image" :alt="`image-${weather}`" />
             </div>
         </div>
         <div class="weather-info-container">
@@ -32,15 +32,35 @@
 <script setup lang="ts">
 import dayjs from 'dayjs';
 import Button from './core/Button.vue';
+import { WeatherCategoryType } from '@/types/api-data/weather-api';
 
 export interface WeatherLocationPropsType {
-    weather: string;
+    weather: WeatherCategoryType;
     location: string;
     temp: number;
     tempUnit: string;
     onSearchPlace: () => void;
     onSearchCurrentLocation: () => void;
 }
+
+const getImageUrl = (weather: WeatherCategoryType): string | null => {
+    switch (weather) {
+        case 'Snow':
+            return new URL(`../assets/Snow.png`, import.meta.url).href;
+        case 'Clear':
+            return new URL(`../assets/Clear.png`, import.meta.url).href;
+        case 'Thunderstorm':
+            return new URL(`../assets/Thunderstorm.png`, import.meta.url).href;
+        case 'Drizzle':
+            return new URL(`../assets/LightRain.png`, import.meta.url).href;
+        case 'Rain':
+            return new URL(`../assets/HeavyRain.png`, import.meta.url).href;
+        case 'Clouds':
+            return new URL(`../assets/HeavyCloud.png`, import.meta.url).href;
+        default:
+            return null;
+    }
+};
 
 defineProps<WeatherLocationPropsType>();
 </script>

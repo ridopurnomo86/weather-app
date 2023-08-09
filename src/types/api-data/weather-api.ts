@@ -1,3 +1,5 @@
+export type WeatherCategoryType = 'Rain' | 'Clouds' | 'Clear' | 'Snow' | 'Drizzle' | 'Thunderstorm';
+
 type CoordType = {
     lon: number;
     lat: number;
@@ -5,7 +7,7 @@ type CoordType = {
 
 type WeatherType = {
     id: number;
-    main: string;
+    main: WeatherCategoryType;
     description: string;
     icon: string;
 };
@@ -50,4 +52,5 @@ export type WeatherApiDataType = {
     id: number;
     name: string;
     cod: number;
+    dt_txt: string;
 };

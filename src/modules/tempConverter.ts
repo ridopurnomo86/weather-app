@@ -1,6 +1,10 @@
-const tempConverter = (temp: number): number => {
+type TypeConverted = 'celcius' | 'farenheit';
+
+const tempConverter = (temp: number, type: TypeConverted): number | null => {
     // Kelvin to Celcius
-    return Number((temp - 273.15).toFixed());
+    if (type === 'celcius') return Number((temp - 273.15).toFixed());
+
+    return null;
 };
 
 export default tempConverter;

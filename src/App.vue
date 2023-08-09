@@ -6,12 +6,12 @@
                 :weather="`${currentWeather.weather?.[0].main}`"
                 :location="`${currentWeather.name}`"
                 :temp-unit="'C'"
-                :temp="tempConverter(currentWeather.main?.temp)"
+                :temp="Number(currentWeather.main?.temp.toFixed())"
                 :on-search-current-location="handleSearchCurrentLocation"
                 :on-search-place="handleSearchPlace"
             />
             <div class="info-container">
-                <DailyWeatherCard />
+                <DailyWeatherCardList :forecasts="forecastWeather.value" />
             </div>
         </div>
     </div>
@@ -19,15 +19,18 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import WeatherLocation from './components/WeatherLocation.vue';
-import DailyWeatherCard from 'components/core/cards/DailyWeatherCard.vue';
-import useCurrentLocation from './composable/useCurrentLocation';
-import useFetch from './composable/useFetch';
-import tempConverter from './modules/tempConverter';
-import { WeatherApiDataType } from './types/api-data/weather-api';
-import Loader from './components/core/Loader.vue';
+import WeatherLocation from 'components/WeatherLocation.vue';
+import DailyWeatherCardList from 'components/core/data-display/DailyWeatherCardList.vue';
+import useCurrentLocation from 'composable/useCurrentLocation';
+import useFetch from 'composable/useFetch';
+import { WeatherApiDataType } from 'types/api-data/weather-api';
+import Loader from 'components/core/Loader.vue';
+import useForecast from './composable/useForecast';
 
 const currentWeather = ref<WeatherApiDataType>({} as WeatherApiDataType);
+
+const forecastWeather = ref<any>(null);
+
 const isLoading = ref<boolean>(true);
 
 const location = useCurrentLocation();
@@ -38,15 +41,23 @@ const handleSearchPlace = () => {};
 
 watch(location, async () => {
     const { request } = useFetch({
+        path: '/weather',
         query: {
             lat: location.data.latitude,
             lon: location.data.longitude,
+            units: 'metric',
         },
+    });
+
+    const forecast = await useForecast({
+        latitude: location.data.latitude,
+        longitude: location.data.longitude,
     });
 
     if (location.data) {
         const res = await request();
         currentWeather.value = await res?.data;
+        forecastWeather.value = await forecast;
         isLoading.value = false;
     }
 });

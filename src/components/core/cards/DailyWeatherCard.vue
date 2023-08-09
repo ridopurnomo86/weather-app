@@ -1,21 +1,51 @@
 <template>
     <article class="daily-weather-card-container">
         <div class="wrapper">
-            <p class="weather-text">Tommorow</p>
-            <img src="../../../assets/LightCloud.png" class="image" alt="light-cloud-image" />
+            <p class="weather-text">{{ dateTime }}</p>
+            <img :src="`${getImageUrl(weather)}`" class="image" :alt="`image-${weather}`" />
             <div class="flex-container">
-                <p class="max-temp-text">16°C</p>
-                <p class="min-temp-text">16°C</p>
+                <p class="max-temp-text" aria-label="max-temp-text">{{ maxTemp }}°C</p>
+                <p class="min-temp-text" aria-label="min-temp-text">{{ minTemp }}°C</p>
             </div>
         </div>
     </article>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { WeatherCategoryType } from '@/types/api-data/weather-api';
+
+interface DailyWeatherCardPropsType {
+    maxTemp: number;
+    minTemp: number;
+    weather: WeatherCategoryType;
+    dateTime: string;
+}
+
+const getImageUrl = (weather: WeatherCategoryType): string | null => {
+    switch (weather) {
+        case 'Snow':
+            return new URL(`../../../assets/Snow.png`, import.meta.url).href;
+        case 'Clear':
+            return new URL(`../../../assets/Clear.png`, import.meta.url).href;
+        case 'Thunderstorm':
+            return new URL(`../../../assets/Thunderstorm.png`, import.meta.url).href;
+        case 'Drizzle':
+            return new URL(`../../../assets/LightRain.png`, import.meta.url).href;
+        case 'Rain':
+            return new URL(`../../../assets/HeavyRain.png`, import.meta.url).href;
+        case 'Clouds':
+            return new URL(`../../../assets/HeavyCloud.png`, import.meta.url).href;
+        default:
+            return null;
+    }
+};
+
+defineProps<DailyWeatherCardPropsType>();
+</script>
 
 <style scoped>
 .daily-weather-card-container {
-    max-width: 120px;
+    max-width: 140px;
 }
 .wrapper {
     width: 100%;
