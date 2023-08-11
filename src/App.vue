@@ -12,6 +12,8 @@
             />
             <div class="info-container">
                 <DailyWeatherCardList :forecasts="forecastWeather.value" />
+                <VisibilityCard :visibility="currentWeather.visibility" />
+                <AirPressureCard :air-pressure="currentWeather.main.pressure" />
             </div>
         </div>
     </div>
@@ -20,6 +22,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import WeatherLocation from 'components/WeatherLocation.vue';
+import VisibilityCard from './components/core/cards/VisibilityCard.vue';
+import AirPressureCard from './components/core/cards/AirPressureCard.vue';
 import DailyWeatherCardList from 'components/core/data-display/DailyWeatherCardList.vue';
 import useCurrentLocation from 'composable/useCurrentLocation';
 import useFetch from 'composable/useFetch';
@@ -72,7 +76,5 @@ watch(location, async () => {
 .info-container {
     background-color: var(--main-bg-400);
     width: 100%;
-    padding: 150px;
-    margin: 0 auto;
 }
 </style>

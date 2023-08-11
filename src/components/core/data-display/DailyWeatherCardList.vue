@@ -34,5 +34,6 @@ defineProps<DailyWeatherCardListPropsType>();
 .daily-weather-card-list-container {
     display: flex;
     gap: 26px;
+    flex-wrap: wrap;
 }
 </style>
