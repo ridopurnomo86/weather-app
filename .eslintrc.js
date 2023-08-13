@@ -20,6 +20,8 @@ module.exports = {
         'vue/component-name-in-template-casing': ['error', 'PascalCase'],
         'linebreak-style': 0,
         'no-console': ['error'],
+        'vue/no-v-model-argument': 'off',
+        'no-unused-vars': ['error', { args: 'none' }],
         'vue/multi-word-component-names': 0,
         'vitest/max-nested-describe': [
             'error',

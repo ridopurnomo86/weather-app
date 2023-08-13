@@ -3,7 +3,6 @@ import { ref } from 'vue';
 
 const data = ref(null);
 const error = ref(null);
-const isLoading = ref(true);
 const { signal, abort } = new AbortController();
 
 type UseFetchType = {
@@ -26,17 +25,15 @@ const useFetch = ({ query, path }: UseFetchType) => {
                 signal,
             });
             data.value = await res.data;
-            isLoading.value = false;
             return res;
         } catch (err: unknown) {
             if (err instanceof Error) {
                 (error.value as any) = err;
             }
-            isLoading.value = false;
         }
     };
 
-    return { data, error, isLoading, request, abort };
+    return { data, error, request, abort };
 };
 
 export default useFetch;

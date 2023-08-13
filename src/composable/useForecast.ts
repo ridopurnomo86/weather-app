@@ -8,13 +8,25 @@ dayjs.extend(isTommorow);
 
 const forecast = ref<any>(null);
 
-const useForecast = async ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+const useForecast = async ({
+    latitude,
+    longitude,
+    country,
+}: {
+    latitude?: number;
+    longitude?: number;
+    country?: string;
+}) => {
     watchEffect(async () => {
         const { request: requestForecast } = useFetch({
             path: '/forecast',
             query: {
-                lat: latitude,
-                lon: longitude,
+                ...(country
+                    ? { q: country }
+                    : {
+                          lat: latitude,
+                          lon: longitude,
+                      }),
                 units: 'metric',
             },
         });

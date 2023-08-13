@@ -3,7 +3,7 @@
         <div>
             <div className="header-container">
                 <Button :text="'Search for places'" :on-click="onSearchPlace" />
-                <button class="icon-container" :on-click="onSearchCurrentLocation">
+                <button class="icon-container" @click="onSearchCurrentLocation">
                     <img src="../assets/icons/gps.svg" alt="gps icon" />
                 </button>
             </div>

@@ -18,7 +18,6 @@ defineProps<{ visibility: number }>();
 .visibility-card-container {
     padding: 24px 0px;
     background-color: var(--main-bg-300);
-    max-width: 328px;
     display: flex;
     align-items: center;
     justify-content: center;

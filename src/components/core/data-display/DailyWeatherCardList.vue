@@ -20,7 +20,7 @@ import isTommorow from 'dayjs/plugin/isTomorrow';
 dayjs.extend(isTommorow);
 
 interface DailyWeatherCardListPropsType {
-    forecasts: WeatherApiDataType[];
+    forecasts: WeatherApiDataType[] | null;
 }
 
 const renderDateTime = (date: string) => {
@@ -35,5 +35,12 @@ defineProps<DailyWeatherCardListPropsType>();
     display: flex;
     gap: 26px;
     flex-wrap: wrap;
+    margin-bottom: 72px;
+}
+@media screen and (max-width: 605px) {
+    .daily-weather-card-list-container {
+        align-items: center;
+        justify-content: center;
+    }
 }
 </style>
