@@ -11,8 +11,10 @@
 </template>
 
 <script setup lang="ts">
+export type VariantButtonType = 'primary' | 'default';
+
 export interface ButtonPropsType {
-    variant?: 'primary' | 'default';
+    variant?: VariantButtonType | string;
     text?: string;
     onClick?: () => void;
 }

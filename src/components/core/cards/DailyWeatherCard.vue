@@ -2,7 +2,7 @@
     <article class="daily-weather-card-container">
         <div class="wrapper">
             <p class="weather-text">{{ dateTime }}</p>
-            <img :src="`${getImageUrl(weather)}`" class="image" :alt="`image-${weather}`" />
+            <img :src="`${getImageUrl(weather as WeatherCategoryType)}`" class="image" :alt="`image-${weather}`" />
             <div class="flex-container">
                 <p class="max-temp-text" aria-label="max-temp-text">{{ maxTemp }}°C</p>
                 <p class="min-temp-text" aria-label="min-temp-text">{{ minTemp }}°C</p>
@@ -17,7 +17,7 @@ import { WeatherCategoryType } from '@/types/api-data/weather-api';
 interface DailyWeatherCardPropsType {
     maxTemp: number;
     minTemp: number;
-    weather: WeatherCategoryType;
+    weather: WeatherCategoryType | string;
     dateTime: string;
 }
 
